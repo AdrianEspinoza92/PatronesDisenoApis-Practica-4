@@ -1,0 +1,20 @@
+{
+  "name": "practica04-graphql",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "start:ingenuo": "node server.js --ingenuo",
+    "demo": "node scripts/demo.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@apollo/server": "^5.5.1",
+    "dataloader": "^2.2.3",
+    "graphql": "^16.14.2"
+  }
+}

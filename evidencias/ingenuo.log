@@ -1,0 +1,12 @@
+[DB QUERY] SELECT * FROM clientes;
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-1';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-2';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-3';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-4';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-5';
+[DB QUERY] SELECT * FROM clientes;
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-1';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-2';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-3';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-4';
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id = 'c-5';

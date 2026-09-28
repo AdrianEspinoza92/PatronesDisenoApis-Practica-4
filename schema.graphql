@@ -1,0 +1,20 @@
+enum EstadoFactura {
+  PAGADA
+  PENDIENTE
+  ANULADA
+}
+type Factura {
+  id: ID!
+  clienteId: ID!
+  monto: Float!
+  estado: EstadoFactura!
+}
+type Cliente {
+  id: ID!
+  nombre: String!
+  sector: String!
+  facturas: [Factura!]!
+}
+type Query {
+  clientes: [Cliente!]!
+}

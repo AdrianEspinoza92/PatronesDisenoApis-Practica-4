@@ -1,0 +1,326 @@
+[
+  {
+    "mode": "ingenuo",
+    "request": 1,
+    "total": 6,
+    "metrics": {
+      "clientes": 1,
+      "individuales": 5,
+      "lotes": 0
+    },
+    "durationMs": 442,
+    "response": {
+      "data": {
+        "clientes": [
+          {
+            "id": "c-1",
+            "nombre": "Corporación Alfa",
+            "sector": "Finanzas",
+            "facturas": [
+              {
+                "id": "f-101",
+                "monto": 1500,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-102",
+                "monto": 2300.5,
+                "estado": "PENDIENTE"
+              }
+            ]
+          },
+          {
+            "id": "c-2",
+            "nombre": "Logística Beta",
+            "sector": "Transporte",
+            "facturas": [
+              {
+                "id": "f-103",
+                "monto": 450,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-3",
+            "nombre": "Industrias Gamma",
+            "sector": "Manufactura",
+            "facturas": [
+              {
+                "id": "f-104",
+                "monto": 8900,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-105",
+                "monto": 1200,
+                "estado": "ANULADA"
+              }
+            ]
+          },
+          {
+            "id": "c-4",
+            "nombre": "Tecnología Delta",
+            "sector": "Educación",
+            "facturas": [
+              {
+                "id": "f-106",
+                "monto": 350,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-5",
+            "nombre": "Retail Epsilon",
+            "sector": "Comercio",
+            "facturas": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "mode": "ingenuo",
+    "request": 2,
+    "total": 6,
+    "metrics": {
+      "clientes": 1,
+      "individuales": 5,
+      "lotes": 0
+    },
+    "durationMs": 411,
+    "response": {
+      "data": {
+        "clientes": [
+          {
+            "id": "c-1",
+            "nombre": "Corporación Alfa",
+            "sector": "Finanzas",
+            "facturas": [
+              {
+                "id": "f-101",
+                "monto": 1500,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-102",
+                "monto": 2300.5,
+                "estado": "PENDIENTE"
+              }
+            ]
+          },
+          {
+            "id": "c-2",
+            "nombre": "Logística Beta",
+            "sector": "Transporte",
+            "facturas": [
+              {
+                "id": "f-103",
+                "monto": 450,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-3",
+            "nombre": "Industrias Gamma",
+            "sector": "Manufactura",
+            "facturas": [
+              {
+                "id": "f-104",
+                "monto": 8900,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-105",
+                "monto": 1200,
+                "estado": "ANULADA"
+              }
+            ]
+          },
+          {
+            "id": "c-4",
+            "nombre": "Tecnología Delta",
+            "sector": "Educación",
+            "facturas": [
+              {
+                "id": "f-106",
+                "monto": 350,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-5",
+            "nombre": "Retail Epsilon",
+            "sector": "Comercio",
+            "facturas": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "mode": "optimizado",
+    "request": 1,
+    "total": 2,
+    "metrics": {
+      "clientes": 1,
+      "individuales": 0,
+      "lotes": 1
+    },
+    "durationMs": 419,
+    "response": {
+      "data": {
+        "clientes": [
+          {
+            "id": "c-1",
+            "nombre": "Corporación Alfa",
+            "sector": "Finanzas",
+            "facturas": [
+              {
+                "id": "f-101",
+                "monto": 1500,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-102",
+                "monto": 2300.5,
+                "estado": "PENDIENTE"
+              }
+            ]
+          },
+          {
+            "id": "c-2",
+            "nombre": "Logística Beta",
+            "sector": "Transporte",
+            "facturas": [
+              {
+                "id": "f-103",
+                "monto": 450,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-3",
+            "nombre": "Industrias Gamma",
+            "sector": "Manufactura",
+            "facturas": [
+              {
+                "id": "f-104",
+                "monto": 8900,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-105",
+                "monto": 1200,
+                "estado": "ANULADA"
+              }
+            ]
+          },
+          {
+            "id": "c-4",
+            "nombre": "Tecnología Delta",
+            "sector": "Educación",
+            "facturas": [
+              {
+                "id": "f-106",
+                "monto": 350,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-5",
+            "nombre": "Retail Epsilon",
+            "sector": "Comercio",
+            "facturas": []
+          }
+        ]
+      }
+    }
+  },
+  {
+    "mode": "optimizado",
+    "request": 2,
+    "total": 2,
+    "metrics": {
+      "clientes": 1,
+      "individuales": 0,
+      "lotes": 1
+    },
+    "durationMs": 410,
+    "response": {
+      "data": {
+        "clientes": [
+          {
+            "id": "c-1",
+            "nombre": "Corporación Alfa",
+            "sector": "Finanzas",
+            "facturas": [
+              {
+                "id": "f-101",
+                "monto": 1500,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-102",
+                "monto": 2300.5,
+                "estado": "PENDIENTE"
+              }
+            ]
+          },
+          {
+            "id": "c-2",
+            "nombre": "Logística Beta",
+            "sector": "Transporte",
+            "facturas": [
+              {
+                "id": "f-103",
+                "monto": 450,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-3",
+            "nombre": "Industrias Gamma",
+            "sector": "Manufactura",
+            "facturas": [
+              {
+                "id": "f-104",
+                "monto": 8900,
+                "estado": "PAGADA"
+              },
+              {
+                "id": "f-105",
+                "monto": 1200,
+                "estado": "ANULADA"
+              }
+            ]
+          },
+          {
+            "id": "c-4",
+            "nombre": "Tecnología Delta",
+            "sector": "Educación",
+            "facturas": [
+              {
+                "id": "f-106",
+                "monto": 350,
+                "estado": "PAGADA"
+              }
+            ]
+          },
+          {
+            "id": "c-5",
+            "nombre": "Retail Epsilon",
+            "sector": "Comercio",
+            "facturas": []
+          }
+        ]
+      }
+    }
+  }
+]

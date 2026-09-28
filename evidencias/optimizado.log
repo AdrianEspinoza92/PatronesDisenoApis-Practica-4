@@ -1,0 +1,4 @@
+[DB QUERY] SELECT * FROM clientes;
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id IN ('c-1', 'c-2', 'c-3', 'c-4', 'c-5');
+[DB QUERY] SELECT * FROM clientes;
+[DB QUERY] SELECT * FROM facturas WHERE cliente_id IN ('c-1', 'c-2', 'c-3', 'c-4', 'c-5');

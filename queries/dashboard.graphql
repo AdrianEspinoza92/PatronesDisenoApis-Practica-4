@@ -1,0 +1,8 @@
+query GetDashboardData {
+  clientes {
+    id
+    nombre
+    sector
+    facturas { id monto estado }
+  }
+}

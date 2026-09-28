@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "Práctica 04 - GraphQL y DataLoader",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Pruebas del contrato y demostración de N+1. Ejecutar contra una versión a la vez. Los conteos de BD se revisan en la consola; no están expuestos en la respuesta HTTP."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:4000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 - Dashboard completo",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"query Dashboard { clientes { id nombre sector facturas { id clienteId monto estado } } }\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/",
+        "description": "Con cinco clientes: 6 lecturas en modo ingenuo y 2 en optimizado. Verificar el conteo en la terminal del servidor, no en Postman."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Sin errores GraphQL\", () => pm.expect(body.errors).to.equal(undefined));",
+              "pm.test(\"Cinco clientes\", () => pm.expect(body.data.clientes.length).to.equal(5));",
+              "pm.test(\"Seis facturas en total\", () => pm.expect(body.data.clientes.flatMap(c => c.facturas).length).to.equal(6));",
+              "pm.test(\"Cada factura pertenece a su cliente\", () => pm.expect(body.data.clientes.every(c => c.facturas.every(f => f.clienteId === c.id))).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "02 - Solo clientes",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"{ clientes { id nombre sector } }\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/",
+        "description": "Debe producir una sola lectura de clientes en ambos modos."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Sin errores GraphQL\", () => pm.expect(body.errors).to.equal(undefined));",
+              "pm.test(\"Cinco clientes sin campo facturas\", () => pm.expect(body.data.clientes.length === 5 && body.data.clientes.every(c => !(\"facturas\" in c))).to.equal(true));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "03 - Cliente sin facturas",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"{ clientes { id facturas { id } } }\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/",
+        "description": "El esquema no ofrece filtro por cliente; se consulta la lista y se comprueba c-5."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Sin errores GraphQL\", () => pm.expect(body.errors).to.equal(undefined));",
+              "pm.test(\"c-5 devuelve una lista vacía\", () => pm.expect(body.data.clientes.find(c => c.id === \"c-5\").facturas).to.deep.equal([]));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "04 - Caché con aliases",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"{ clientes { id primera: facturas { id monto } segunda: facturas { id monto } } }\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/",
+        "description": "Dos accesos a facturas por cliente. En optimizado: 2 lecturas totales; en ingenuo: 11. La igualdad de datos no prueba por sí sola la caché: comprobar logs."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Sin errores GraphQL\", () => pm.expect(body.errors).to.equal(undefined));",
+              "pm.test(\"Ambos aliases devuelven lo mismo\", () => { for (const c of body.data.clientes) pm.expect(c.primera).to.deep.equal(c.segunda); });"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "05 - Nueva petición, nueva caché",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"{ clientes { id facturas { id monto } } }\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/",
+        "description": "Ejecutar después de otra consulta. Deben aparecer nuevamente 2 lecturas en optimizado: no hay caché global entre peticiones."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 200\", () => pm.response.to.have.status(200));",
+              "const body = pm.response.json();",
+              "pm.test(\"Sin errores GraphQL\", () => pm.expect(body.errors).to.equal(undefined));",
+              "pm.test(\"Se recuperan cinco clientes\", () => pm.expect(body.data.clientes.length).to.equal(5));"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "06 - Campo inválido rechazado",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"query\": \"{ clientes { id campoInexistente } }\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "{{baseUrl}}/",
+        "description": "Debe rechazar la consulta antes de acceder a la base de datos: cero lecturas."
+      },
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"HTTP 400 por validación\", () => pm.response.to.have.status(400));",
+              "const body = pm.response.json();",
+              "pm.test(\"Error de validación GraphQL\", () => pm.expect(body.errors.some(e => e.extensions.code === \"GRAPHQL_VALIDATION_FAILED\")).to.equal(true));",
+              "pm.test(\"Sin datos ejecutados\", () => pm.expect(body.data).to.equal(undefined));"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
